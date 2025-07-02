@@ -906,11 +906,11 @@
 
         // Form handling
         document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
             
-            if (!data.name || !data.title || !data.company || !data.challenge) {
+            if (!data.email || !data.message) {
+                e.preventDefault();
                 alert('Please complete all required fields.');
                 return;
             }
