@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SJ Labs AI | Strategic AI Implementation for Enterprise Leaders</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
         :root {
             /* Light mode colors */
             --bg-primary: #fafafa;
@@ -14,10 +16,10 @@
             --text-secondary: #666666;
             --text-muted: #888888;
             --border-color: #e5e5e5;
-            --accent-primary: #ff6b35;
-            --accent-secondary: #4a90e2;
-            --accent-soft: #f0f8ff;
-            --shadow: rgba(0, 0, 0, 0.08);
+            --accent-primary: #9ca3af;
+            --accent-secondary: #d1d5db;
+            --accent-soft: #f9fafb;
+            --shadow: rgba(156, 163, 175, 0.12);
             --sidebar-bg: #ffffff;
             --card-bg: #ffffff;
         }
@@ -27,13 +29,13 @@
             --bg-primary: #1a1a1a;
             --bg-secondary: #2a2a2a;
             --bg-tertiary: #333333;
-            --text-primary: #ffffff;
-            --text-secondary: #cccccc;
-            --text-muted: #999999;
+            --text-primary: #f3f4f6;
+            --text-secondary: #d1d5db;
+            --text-muted: #9ca3af;
             --border-color: #404040;
-            --accent-primary: #ff8a65;
-            --accent-secondary: #64b5f6;
-            --accent-soft: #2a3a4a;
+            --accent-primary: #d1d5db;
+            --accent-secondary: #9ca3af;
+            --accent-soft: #374151;
             --shadow: rgba(0, 0, 0, 0.3);
             --sidebar-bg: #242424;
             --card-bg: #2a2a2a;
@@ -46,11 +48,13 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
             transition: background 0.3s ease, color 0.3s ease;
+            font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+            font-weight: 400;
         }
 
         .container {
@@ -83,6 +87,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            letter-spacing: -0.02em;
         }
 
         .logo-icon {
@@ -160,9 +165,11 @@
             color: var(--text-secondary);
             border-radius: 8px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 500;
+            font-family: inherit;
             transition: all 0.2s ease;
+            letter-spacing: 0.01em;
         }
 
         .theme-option.active {
@@ -191,6 +198,8 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
         }
 
         .hero-subtitle {
@@ -215,19 +224,19 @@
             align-items: center;
             gap: 8px;
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            color: white;
+            color: #2c2c2c;
             padding: 16px 32px;
             text-decoration: none;
             border-radius: 16px;
             font-weight: 600;
             font-size: 16px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 4px 20px rgba(156, 163, 175, 0.25);
         }
 
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(255, 107, 53, 0.4);
+            box-shadow: 0 8px 30px rgba(156, 163, 175, 0.35);
         }
 
         /* Grid Sections */
@@ -243,6 +252,8 @@
             font-weight: 700;
             margin-bottom: 48px;
             color: var(--text-primary);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
         }
 
         .section-subtitle {
@@ -512,7 +523,7 @@
             <div class="theme-switcher">
                 <div class="theme-options">
                     <button class="theme-option" data-theme="light">Light</button>
-                    <button class="theme-option active" data-theme="auto">Auto</button>
+                    <button class="theme-option" data-theme="auto">Auto</button>
                     <button class="theme-option" data-theme="dark">Dark</button>
                 </div>
             </div>
@@ -636,19 +647,56 @@
     </div>
 
     <script>
+        // Keyboard navigation for numbered sections
+        document.addEventListener('keydown', (e) => {
+            // Only trigger if user isn't typing in an input field
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                const sectionMap = {
+                    '1': '#overview',
+                    '2': '#services', 
+                    '3': '#case-studies',
+                    '4': '#process',
+                    '5': '#updates',
+                    '6': '#contact'
+                };
+                
+                if (sectionMap[e.key]) {
+                    e.preventDefault();
+                    const targetSection = document.querySelector(sectionMap[e.key]);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            }
+        });
+
         // Theme switching functionality
         const themeOptions = document.querySelectorAll('.theme-option');
         const body = document.body;
         
         // Check for saved theme preference or default to 'auto'
-        const currentTheme = localStorage.getItem('theme') || 'auto';
+        let currentTheme = localStorage.getItem('theme') || 'auto';
         
         function setTheme(theme) {
+            console.log('Setting theme to:', theme); // Debug log
+            
             // Remove active class from all options
-            themeOptions.forEach(option => option.classList.remove('active'));
+            themeOptions.forEach(option => {
+                option.classList.remove('active');
+                console.log('Removed active from:', option.dataset.theme); // Debug log
+            });
             
             // Add active class to selected option
-            document.querySelector(`[data-theme="${theme}"]`).classList.add('active');
+            const selectedOption = document.querySelector(`[data-theme="${theme}"]`);
+            console.log('Selected option:', selectedOption); // Debug log
+            
+            if (selectedOption) {
+                selectedOption.classList.add('active');
+                console.log('Added active to:', theme); // Debug log
+            }
             
             if (theme === 'auto') {
                 // Use system preference
@@ -666,6 +714,7 @@
             }
             
             localStorage.setItem('theme', theme);
+            currentTheme = theme;
         }
         
         // Initialize theme
@@ -673,7 +722,9 @@
         
         // Theme option click handlers
         themeOptions.forEach(option => {
-            option.addEventListener('click', () => {
+            option.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('Clicked theme:', option.dataset.theme); // Debug log
                 setTheme(option.dataset.theme);
             });
         });
