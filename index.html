@@ -3,8 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Strategy & Implementation — Executive Consulting</title>
+    <title>SJ Labs AI | Strategic AI Implementation for Enterprise Leaders</title>
     <style>
+        :root {
+            /* Light mode colors */
+            --bg-primary: #fafafa;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f5f5f5;
+            --text-primary: #2c2c2c;
+            --text-secondary: #666666;
+            --text-muted: #888888;
+            --border-color: #e5e5e5;
+            --accent-primary: #ff6b35;
+            --accent-secondary: #4a90e2;
+            --accent-soft: #f0f8ff;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --sidebar-bg: #ffffff;
+            --card-bg: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            /* Dark mode colors */
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2a2a2a;
+            --bg-tertiary: #333333;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #999999;
+            --border-color: #404040;
+            --accent-primary: #ff8a65;
+            --accent-secondary: #64b5f6;
+            --accent-soft: #2a3a4a;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --sidebar-bg: #242424;
+            --card-bg: #2a2a2a;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,902 +46,715 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
-            color: #1a1a1a;
-            background: #fafafa;
-            letter-spacing: -0.01em;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        /* Header */
-        .header {
-            padding: 60px 0 40px;
-            border-bottom: 1px solid #e5e5e5;
-            margin-bottom: 80px;
-        }
-
-        .nav {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 60px;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar-bg);
+            padding: 32px 24px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid var(--border-color);
+            box-shadow: 2px 0 20px var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .logo-section {
+            margin-bottom: 48px;
         }
 
         .logo {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1a1a1a;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-primary);
             text-decoration: none;
-            letter-spacing: -0.02em;
-        }
-
-        .nav-links {
             display: flex;
-            gap: 40px;
+            align-items: center;
+            gap: 12px;
         }
 
-        .nav-links a {
-            color: #666;
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav-menu {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .nav-menu li {
+            margin-bottom: 8px;
+        }
+
+        .nav-menu a {
+            color: var(--text-secondary);
             text-decoration: none;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 500;
-            transition: color 0.2s ease;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 12px;
+            gap: 12px;
         }
 
-        .nav-links a:hover {
-            color: #1a1a1a;
+        .nav-menu a:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            transform: translateX(4px);
         }
 
+        .nav-menu a.active {
+            background: var(--accent-soft);
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .nav-number {
+            font-size: 12px;
+            opacity: 0.5;
+            margin-left: auto;
+        }
+
+        /* Theme Switcher */
+        .theme-switcher {
+            border-top: 1px solid var(--border-color);
+            padding-top: 24px;
+            margin-top: auto;
+        }
+
+        .theme-options {
+            display: flex;
+            gap: 8px;
+            background: var(--bg-tertiary);
+            padding: 4px;
+            border-radius: 12px;
+        }
+
+        .theme-option {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .theme-option.active {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 48px 64px;
+        }
+
+        /* Hero Section */
         .hero {
-            text-align: left;
-            max-width: 600px;
+            margin-bottom: 96px;
         }
 
-        .hero h1 {
-            font-size: 56px;
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 30px;
-            color: #1a1a1a;
-            letter-spacing: -0.03em;
+        .greeting {
+            font-size: 64px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero-subtitle {
-            font-size: 24px;
-            color: #666;
-            font-weight: 400;
-            margin-bottom: 40px;
-            line-height: 1.4;
-        }
-
-        .hero-cta {
-            display: inline-block;
-            background: #1a1a1a;
-            color: white;
-            padding: 16px 32px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 15px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            letter-spacing: 0.01em;
-        }
-
-        .hero-cta:hover {
-            background: #333;
-        }
-
-        /* Sections */
-        .section {
-            margin: 120px 0;
-        }
-
-        .section-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 40px;
-        }
-
-        .section h2 {
-            font-size: 42px;
-            font-weight: 700;
-            margin-bottom: 30px;
-            color: #1a1a1a;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-        }
-
-        .section p {
-            font-size: 18px;
-            color: #555;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .section p.large {
-            font-size: 24px;
-            color: #333;
+            font-size: 22px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            max-width: 700px;
             font-weight: 400;
             line-height: 1.5;
         }
 
-        /* Services Grid */
-        .services {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 60px;
-            margin-top: 60px;
-        }
-
-        .service {
-            padding: 0;
-        }
-
-        .service-number {
-            font-size: 14px;
-            font-weight: 600;
-            color: #999;
-            margin-bottom: 20px;
-            letter-spacing: 0.1em;
-        }
-
-        .service h3 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #1a1a1a;
-            letter-spacing: -0.01em;
-        }
-
-        .service p {
-            font-size: 16px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Stats */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 60px;
-            margin: 80px 0;
-            padding: 60px 0;
-            border-top: 1px solid #e5e5e5;
-            border-bottom: 1px solid #e5e5e5;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 48px;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 10px;
-            letter-spacing: -0.02em;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: #666;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        /* Testimonials */
-        .testimonial {
-            max-width: 700px;
-            margin: 80px 0;
-            padding: 0;
-        }
-
-        .testimonial-quote {
-            font-size: 28px;
-            font-weight: 400;
-            color: #1a1a1a;
-            line-height: 1.4;
-            margin-bottom: 40px;
-            letter-spacing: -0.01em;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .author-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: #e5e5e5;
-        }
-
-        .author-info h4 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 4px;
-        }
-
-        .author-info p {
-            font-size: 14px;
-            color: #666;
-            margin: 0;
-        }
-
-        /* Pricing */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 60px;
-            margin-top: 60px;
-            align-items: start;
-        }
-
-        .pricing-card {
-            padding: 40px 0;
-            border-top: 2px solid #1a1a1a;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .pricing-card.featured {
-            border-top-color: #1a1a1a;
-            background: #fafafa;
-            padding: 40px;
-            margin: -40px;
-            border-radius: 8px;
-        }
-
-        .pricing-cta {
-            margin-top: auto;
-            padding-top: 30px;
-        }
-
-        .pricing-cta-btn {
-            display: inline-block;
-            background: #1a1a1a;
-            color: white;
-            padding: 14px 28px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 8px;
-            text-align: center;
-            width: 100%;
-        }
-
-        .pricing-cta-btn:hover {
-            background: #333;
-            box-shadow: 0 6px 20px rgba(26, 26, 26, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .pricing-cta-btn.secondary {
-            background: transparent;
-            color: #1a1a1a;
-            border: 2px solid #1a1a1a;
-        }
-
-        .pricing-cta-btn.secondary:hover {
-            background: #1a1a1a;
-            color: white;
-        }
-
-        .pricing-title {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #1a1a1a;
-        }
-
-        .pricing-description {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .pricing-price {
+        .hero-description {
             font-size: 18px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 30px;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin-bottom: 48px;
+            line-height: 1.7;
         }
 
-        .pricing-features {
-            list-style: none;
-        }
-
-        .pricing-features li {
-            font-size: 15px;
-            color: #555;
-            margin-bottom: 12px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .pricing-features li:before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: #999;
-        }
-
-        /* Contact */
-        .contact-form {
-            max-width: 600px;
-            margin-top: 60px;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 30px;
-        }
-
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-
-        label {
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 16px 0;
-            border: none;
-            border-bottom: 1px solid #e5e5e5;
-            background: transparent;
-            font-size: 16px;
-            color: #1a1a1a;
-            transition: border-color 0.2s ease;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-bottom-color: #1a1a1a;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-btn {
-            background: #1a1a1a;
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
             color: white;
             padding: 16px 32px;
-            border: none;
+            text-decoration: none;
+            border-radius: 16px;
             font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: background 0.2s ease;
-            margin-top: 20px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
         }
 
-        .submit-btn:hover {
-            background: #333;
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 107, 53, 0.4);
         }
 
-        /* Footer */
-        .footer {
-            margin-top: 160px;
-            padding: 60px 0;
-            border-top: 1px solid #e5e5e5;
-            text-align: center;
+        /* Grid Sections */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 64px;
         }
 
-        .footer p {
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 48px;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 40px var(--shadow);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 20px;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Case Studies */
+        .case-study {
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 20px;
+            border-left: 4px solid var(--accent-primary);
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .case-study:hover {
+            transform: translateX(4px);
+        }
+
+        .case-study h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .case-study p {
+            color: var(--text-secondary);
+        }
+
+        .metric {
+            color: var(--accent-primary);
+            font-weight: 700;
+        }
+
+        /* Process Section */
+        .process-grid {
+            display: grid;
+            gap: 32px;
+            margin-bottom: 64px;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--shadow);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .step-content p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Updates Section */
+        .updates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 64px;
+        }
+
+        .update-card {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 12px var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .update-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px var(--shadow);
+        }
+
+        .update-date {
+            color: var(--text-muted);
             font-size: 14px;
-            color: #999;
-            margin: 0;
+            margin-bottom: 8px;
         }
 
-        /* Responsive */
+        .update-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .update-desc {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 20px;
+            .sidebar {
+                width: 100%;
+                position: static;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
             }
 
-            .nav {
-                flex-direction: column;
-                gap: 30px;
-                align-items: flex-start;
+            .main-content {
+                margin-left: 0;
+                padding: 24px 20px;
             }
 
-            .hero h1 {
-                font-size: 42px;
+            .greeting {
+                font-size: 48px;
             }
 
             .hero-subtitle {
                 font-size: 20px;
             }
 
-            .services {
+            .content-grid {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                gap: 20px;
             }
 
-            .stats {
-                grid-template-columns: 1fr;
-                gap: 40px;
-                text-align: left;
-            }
-
-            .pricing-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .section {
-                margin: 80px 0;
+            .process-step {
+                flex-direction: column;
+                text-align: center;
             }
         }
 
-        /* Subtle interactions and hover effects */
-        .service {
-            transition: all 0.3s ease;
-            padding: 20px;
-            margin: -20px;
-            border-radius: 8px;
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
         }
 
-        .service:hover {
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-            transform: translateY(-4px);
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
 
-        .pricing-card {
-            transition: all 0.3s ease;
+        ::-webkit-scrollbar-track {
+            background: var(--bg-tertiary);
         }
 
-        .pricing-card:hover {
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-            transform: translateY(-8px);
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-primary);
+            border-radius: 4px;
         }
 
-        .testimonial {
-            transition: all 0.3s ease;
-            padding: 40px;
-            margin: 40px -40px;
-            border-radius: 12px;
-        }
-
-        .testimonial:hover {
-            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.06);
-            transform: translateY(-2px);
-        }
-
-        .hero-cta, .submit-btn {
-            transition: all 0.3s ease;
-        }
-
-        .hero-cta:hover, .submit-btn:hover {
-            box-shadow: 0 8px 25px rgba(26, 26, 26, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .nav-links a {
-            transition: all 0.2s ease;
-            padding: 8px 12px;
-            border-radius: 6px;
-        }
-
-        .nav-links a:hover {
-            background: rgba(26, 26, 26, 0.05);
-        }
-
-        .case-study-card {
-            border: 1px solid #e5e5e5;
-            padding: 40px;
-            margin-bottom: 40px;
-            transition: all 0.3s ease;
-            border-radius: 8px;
-        }
-
-        .case-study-card:hover {
-            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.08);
-            transform: translateY(-6px);
-            border-color: #d0d0d0;
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-secondary);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header class="header">
-            <nav class="nav">
-                <a href="#" class="logo">AI Advisory</a>
-                <div class="nav-links">
-                    <a href="#approach">Approach</a>
-                    <a href="#case-studies">Case Studies</a>
-                    <a href="#services">Services</a>
-                    <a href="#contact">Contact</a>
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo-section">
+                <a href="#" class="logo">
+                    <div class="logo-icon">⚡</div>
+                    SJ Labs AI
+                </a>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="#overview" class="active">
+                    <span>Overview</span>
+                    <span class="nav-number">1</span>
+                </a></li>
+                <li><a href="#services">
+                    <span>Services</span>
+                    <span class="nav-number">2</span>
+                </a></li>
+                <li><a href="#case-studies">
+                    <span>Case Studies</span>
+                    <span class="nav-number">3</span>
+                </a></li>
+                <li><a href="#process">
+                    <span>Process</span>
+                    <span class="nav-number">4</span>
+                </a></li>
+                <li><a href="#updates">
+                    <span>Updates</span>
+                    <span class="nav-number">5</span>
+                </a></li>
+                <li><a href="#contact">
+                    <span>Contact</span>
+                    <span class="nav-number">6</span>
+                </a></li>
+            </ul>
+
+            <div class="theme-switcher">
+                <div class="theme-options">
+                    <button class="theme-option" data-theme="light">Light</button>
+                    <button class="theme-option active" data-theme="auto">Auto</button>
+                    <button class="theme-option" data-theme="dark">Dark</button>
                 </div>
-            </nav>
-            
-            <div class="hero">
-                <h1>Strategic AI Implementation for Enterprise Leaders</h1>
-                <p class="hero-subtitle">We help  executives and technical leaders build production-ready AI systems that deliver measurable business outcomes.</p>
-                <a href="#contact" class="hero-cta">Schedule Consultation</a>
             </div>
-        </header>
+        </nav>
 
-        <section class="section">
-            <div class="section-title">Partnership Approach</div>
-            <p class="large">We don't provide theoretical frameworks or generic advice. We embed with your team to architect, build, and deploy AI solutions that solve real business problems and generate measurable ROI.</p>
-        </section>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <section class="hero" id="overview">
+                <h1 class="greeting">Good afternoon</h1>
+                <p class="hero-subtitle">I'm SJ Labs AI, helping executives and technical leaders build production-ready AI systems that deliver measurable business outcomes.</p>
+                <p class="hero-description">We don't provide theoretical frameworks or generic advice. We embed with your team to architect, build, and deploy AI solutions that solve real business problems and generate measurable ROI.</p>
+                <a href="#contact" class="cta-button">
+                    Start Your AI Transformation
+                    <span>→</span>
+                </a>
+            </section>
 
-        <div class="stats">
-            <div class="stat">
-                <div class="stat-number">$2.4M</div>
-                <div class="stat-label">Average Client ROI</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">45</div>
-                <div class="stat-label">Days to Production</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">98%</div>
-                <div class="stat-label">Client Retention</div>
-            </div>
-        </div>
+            <!-- Services Section -->
+            <section id="services">
+                <h2 class="section-title">What we provide</h2>
+                <div class="content-grid">
+                    <div class="card">
+                        <div class="card-icon">🎯</div>
+                        <h3>AI Strategy & Assessment</h3>
+                        <p>Comprehensive evaluation of your current systems, identification of high-impact AI opportunities, and development of implementation roadmaps with clear ROI projections.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">⚙️</div>
+                        <h3>Custom AI Development</h3>
+                        <p>Design and deployment of production-grade AI systems including LLMs, automation workflows, and predictive analytics tailored to your specific business requirements.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">👥</div>
+                        <h3>Team Training & Enablement</h3>
+                        <p>Executive training, team upskilling, and establishment of internal AI capabilities to ensure sustainable competitive advantage beyond our engagement.</p>
+                    </div>
+                </div>
+            </section>
 
-        <section class="section" id="services">
-            <div class="section-title">Core Capabilities</div>
-            <h2>Three pillars of AI transformation</h2>
-            
-            <div class="services">
-                <div class="service">
-                    <div class="service-number">01</div>
-                    <h3>Strategic Assessment</h3>
-                    <p>Comprehensive evaluation of your current systems, identification of high-impact AI opportunities, and development of implementation roadmaps with clear ROI projections.</p>
+            <!-- Case Studies Section -->
+            <section id="case-studies">
+                <h2 class="section-title">Success Stories</h2>
+                <p class="section-subtitle">Select case studies demonstrating measurable business impact across industries.</p>
+                
+                <div class="case-study">
+                    <h3>Manufacturing AI - Predictive Maintenance</h3>
+                    <p>Implemented predictive maintenance AI system across <span class="metric">47 manufacturing facilities</span>, reducing unplanned downtime by 35% and optimizing maintenance schedules for $2.4M annual savings.</p>
                 </div>
                 
-                <div class="service">
-                    <div class="service-number">02</div>
-                    <h3>Solution Architecture</h3>
-                    <p>Design and deployment of production-grade AI systems including LLMs, automation workflows, and predictive analytics tailored to your specific business requirements.</p>
+                <div class="case-study">
+                    <h3>Financial Services - Risk Assessment</h3>
+                    <p>Deployed AI-powered risk assessment and fraud detection system, processing over <span class="metric">2M transactions daily</span> with 99.7% accuracy and real-time decisioning under 100ms.</p>
                 </div>
+            </section>
+
+            <!-- Process Section -->
+            <section id="process">
+                <h2 class="section-title">Our Process</h2>
+                <p class="section-subtitle">Every engagement follows a structured approach designed to minimize risk while maximizing business impact.</p>
                 
-                <div class="service">
-                    <div class="service-number">03</div>
-                    <h3>Organizational Enablement</h3>
-                    <p>Executive training, team upskilling, and establishment of internal AI capabilities to ensure sustainable competitive advantage beyond our engagement.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="case-studies">
-            <div class="section-title">Client Success</div>
-            <h2>Transformative AI implementations</h2>
-            <p>Select case studies demonstrating measurable business impact across industries. <a href="#" onclick="openCaseStudies()" style="color: #1a1a1a; text-decoration: underline; font-weight: 600;">View detailed case studies →</a></p>
-            
-            <div class="case-study-card">
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
-                    <h3 style="font-size: 20px; font-weight: 600; margin: 0;">Global Manufacturing Leader</h3>
-                    <span style="font-size: 14px; color: #666; background: #f5f5f5; padding: 4px 12px; border-radius: 20px;">Manufacturing</span>
-                </div>
-                <p style="color: #666; margin-bottom: 20px;">Implemented predictive maintenance AI system across 47 manufacturing facilities, reducing unplanned downtime and optimizing maintenance schedules.</p>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
-                    <div>
-                        <div style="font-size: 24px; font-weight: 700; color: #1a1a1a;">$12.3M</div>
-                        <div style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.1em;">Annual Savings</div>
-                    </div>
-                    <div>
-                        <div style="font-size: 24px; font-weight: 700; color: #1a1a1a;">73%</div>
-                        <div style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.1em;">Downtime Reduction</div>
-                    </div>
-                    <div>
-                        <div style="font-size: 24px; font-weight: 700; color: #1a1a1a;">4.2x</div>
-                        <div style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.1em;">ROI Multiple</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="case-study-card">
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
-                    <h3 style="font-size: 20px; font-weight: 600; margin: 0;">Financial Services Firm</h3>
-                    <span style="font-size: 14px; color: #666; background: #f5f5f5; padding: 4px 12px; border-radius: 20px;">FinTech</span>
-                </div>
-                <p style="color: #666; margin-bottom: 20px;">Deployed AI-powered risk assessment and fraud detection system, processing over 2M transactions daily with real-time decisioning.</p>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
-                    <div>
-                        <div style="font-size: 24px; font-weight: 700; color: #1a1a1a;">94%</div>
-                        <div style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.1em;">Fraud Detection Rate</div>
-                    </div>
-                    <div>
-                        <div style="font-size: 24px; font-weight: 700; color: #1a1a1a;">0.02%</div>
-                        <div style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.1em;">False Position Rate</div>
-                    </div>
-                    <div>
-                        <div style="font-size: 24px; font-weight: 700; color: #1a1a1a;">85%</div>
-                        <div style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.1em;">Processing Speed Increase</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="approach">
-            <div class="section-title">Methodology</div>
-            <h2>Proven framework for AI success</h2>
-            <p>Every engagement follows a structured approach designed to minimize risk while maximizing business impact. We work exclusively with organizations committed to serious AI transformation—not experiments or pilots.</p>
-            
-            <p><strong>Discovery & Strategy (Weeks 1-2):</strong> Comprehensive business analysis, technical assessment, and opportunity prioritization with executive stakeholders.</p>
-            
-            <p><strong>Architecture & Development (Weeks 3-8):</strong> System design, MVP development, and iterative testing with real business data and use cases.</p>
-            
-            <p><strong>Deployment & Scale (Weeks 9-12):</strong> Production deployment, performance optimization, monitoring implementation, and team knowledge transfer.</p>
-        </section>
-
-        <section class="section">
-            <div class="section-title">Investment</div>
-            <h2>Partnership structures</h2>
-            
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div class="pricing-title">Strategic Assessment</div>
-                    <div class="pricing-description">Comprehensive AI readiness evaluation and implementation roadmap for executive teams.</div>
-                    <div class="pricing-price">2 week engagements - Contact for pricing</div>
-                    <ul class="pricing-features">
-                        <li>Business opportunity analysis</li>
-                        <li>Technical infrastructure assessment</li>
-                        <li>ROI-driven implementation roadmap</li>
-                        <li>Executive presentation and Q&A</li>
-                        <li>Follow-up strategy session</li>
-                    </ul>
-                    <div class="pricing-cta">
-                        <a href="#contact" class="pricing-cta-btn secondary">Schedule Assessment</a>
-                    </div>
-                </div>
-                
-                <div class="pricing-card featured">
-                    <div class="pricing-title">Full Implementation Partnership</div>
-                    <div class="pricing-description">End-to-end AI solution development and deployment with ongoing optimization. Investment varies based on scope and complexity.</div>
-                    <div class="pricing-price" style="margin-bottom: 20px; color: #666; font-size: 16px; font-weight: 500;">Custom engagement — Contact for details</div>
-                    <ul class="pricing-features">
-                        <li>Complete solution architecture and development</li>
-                        <li>Production system deployment and integration</li>
-                        <li>Team training and knowledge transfer</li>
-                        <li>Performance monitoring and optimization</li>
-                        <li>6-month post-launch support included</li>
-                        <li>Dedicated project team and executive access</li>
-                    </ul>
-                    <div class="pricing-cta">
-                        <a href="#contact" class="pricing-cta-btn">Discuss Your Project</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="contact">
-            <div class="section-title">Get Started</div>
-            <h2>Ready to discuss your AI transformation?</h2>
-            <p>We work with a select number of organizations each quarter. If you're serious about implementing AI that drives measurable business results, let's explore how we can work together.</p>
-            
-<!--             <form class="contact-form">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
+                <div class="process-grid">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Discovery & Strategy (Weeks 1-2)</h3>
+                            <p>Comprehensive business analysis, technical assessment, and opportunity prioritization with executive stakeholders.</p>
+                        </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="title">Title</label>
-                        <input type="text" id="title" name="title" required>
-                    </div>
-                </div>
-                
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="company">Company</label>
-                        <input type="text" id="company" name="company" required>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Architecture & Development (Weeks 3-8)</h3>
+                            <p>System design, MVP development, and iterative testing with real business data and use cases.</p>
+                        </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="revenue">Annual Revenue</label>
-                        <input type="text" id="revenue" name="revenue" placeholder="$10M+">
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Deployment & Scale (Weeks 9-12)</h3>
+                            <p>Production deployment, performance optimization, monitoring implementation, and team knowledge transfer.</p>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="form-group full-width">
-                    <label for="challenge">Primary Business Challenge</label>
-                    <textarea id="challenge" name="challenge" placeholder="Describe the specific business problem you're looking to solve with AI, current initiatives, and expected outcomes." required></textarea>
-                </div>
-                
-                <button type="submit" class="submit-btn">Request Consultation</button>
-            </form> -->
-            <form class="contact-form" action="https://formspree.io/f/xwpbzenq" method="POST">
-  <div class="form-group">
-    <label for="email">Your email:</label>
-    <input type="email" id="email" name="email" required>
-  </div>
-  <div class="form-group">
-    <label for="message">Your message:</label>
-    <textarea id="message" name="message" required minlength="10"></textarea>
-  </div>
-  <button type="submit" class="submit-btn">Request Consultation</button>
-</form>
-        </section>
+            </section>
 
-        <footer class="footer">
-            <p>© 2025 AI Advisory. Confidential consultations for qualified organizations.</p>
-        </footer>
+            <!-- Updates Section -->
+            <section id="updates">
+                <h2 class="section-title">Recent Updates</h2>
+                <div class="updates-grid">
+                    <div class="update-card">
+                        <div class="update-date">Mar 2025</div>
+                        <div class="update-title">Enterprise LLM Platform Launch</div>
+                        <div class="update-desc">Successfully deployed custom LLM infrastructure for Fortune 500 client, processing 10M+ queries monthly with 40% cost reduction.</div>
+                    </div>
+                    <div class="update-card">
+                        <div class="update-date">Feb 2025</div>
+                        <div class="update-title">AI Governance Framework</div>
+                        <div class="update-desc">Published comprehensive AI governance framework adopted by 15+ enterprise clients for responsible AI implementation.</div>
+                    </div>
+                    <div class="update-card">
+                        <div class="update-date">Jan 2025</div>
+                        <div class="update-title">Team Expansion</div>
+                        <div class="update-desc">Growing our impact by welcoming 5 new senior AI engineers and data scientists to serve more enterprise clients.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact">
+                <h2 class="section-title">Ready to Transform Your Business?</h2>
+                <p class="section-subtitle">We work with a select number of organizations each quarter. If you're serious about implementing AI that drives measurable business results, let's explore how we can work together.</p>
+                <a href="mailto:contact@sjlabsai.com" class="cta-button">
+                    Get In Touch
+                    <span>→</span>
+                </a>
+            </section>
+        </main>
     </div>
 
     <script>
-        // Smooth scrolling
+        // Theme switching functionality
+        const themeOptions = document.querySelectorAll('.theme-option');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to 'auto'
+        const currentTheme = localStorage.getItem('theme') || 'auto';
+        
+        function setTheme(theme) {
+            // Remove active class from all options
+            themeOptions.forEach(option => option.classList.remove('active'));
+            
+            // Add active class to selected option
+            document.querySelector(`[data-theme="${theme}"]`).classList.add('active');
+            
+            if (theme === 'auto') {
+                // Use system preference
+                const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+                body.setAttribute('data-theme', mediaQuery.matches ? 'dark' : 'light');
+                
+                // Listen for changes in system preference
+                mediaQuery.addEventListener('change', (e) => {
+                    if (localStorage.getItem('theme') === 'auto') {
+                        body.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+                    }
+                });
+            } else {
+                body.setAttribute('data-theme', theme);
+            }
+            
+            localStorage.setItem('theme', theme);
+        }
+        
+        // Initialize theme
+        setTheme(currentTheme);
+        
+        // Theme option click handlers
+        themeOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                setTheme(option.dataset.theme);
+            });
+        });
+
+        // Dynamic greeting based on time
+        function updateGreeting() {
+            const now = new Date();
+            const hour = now.getHours();
+            const greetingElement = document.querySelector('.greeting');
+            
+            let greeting;
+            if (hour < 12) {
+                greeting = 'Good morning';
+            } else if (hour < 17) {
+                greeting = 'Good afternoon';
+            } else {
+                greeting = 'Good evening';
+            }
+            
+            greetingElement.textContent = greeting;
+        }
+        
+        updateGreeting();
+
+        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
         });
 
-        // Case studies page navigation
-        function openCaseStudies() {
-            // Create modal or new page content
-            const caseStudiesContent = `
-                <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; display: flex; align-items: center; justify-content: center;" onclick="this.remove()">
-                    <div style="background: white; max-width: 1000px; max-height: 80vh; overflow-y: auto; border-radius: 12px; position: relative;" onclick="event.stopPropagation()">
-                        <div style="padding: 60px; position: relative;">
-                            <button onclick="this.closest('.case-studies-modal').remove()" style="position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: #666;">×</button>
-                            
-                            <h1 style="font-size: 42px; font-weight: 700; margin-bottom: 30px; color: #1a1a1a;">Detailed Case Studies</h1>
-                            <p style="font-size: 18px; color: #666; margin-bottom: 60px;">In-depth analysis of AI transformations across industries</p>
-                            
-                            <div style="border-bottom: 2px solid #1a1a1a; padding-bottom: 40px; margin-bottom: 60px;">
-                                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 30px;">
-                                    <h2 style="font-size: 32px; font-weight: 600; color: #1a1a1a; margin: 0;">Global Manufacturing Transformation</h2>
-                                    <span style="background: #1a1a1a; color: white; padding: 8px 16px; border-radius: 4px; font-size: 12px; font-weight: 600;">MANUFACTURING</span>
-                                </div>
-                                
-                                <div style="background: #fafafa; padding: 30px; border-radius: 8px; margin-bottom: 30px;">
-                                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 15px;">Challenge</h3>
-                                    <p style="color: #555; line-height: 1.6;">Fortune 500 manufacturing company with 47 facilities across North America experiencing $25M+ annual losses due to unplanned equipment downtime. Legacy maintenance approach was reactive, leading to supply chain disruptions and quality issues.</p>
-                                </div>
-                                
-                                <div style="background: #fafafa; padding: 30px; border-radius: 8px; margin-bottom: 30px;">
-                                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 15px;">Solution</h3>
-                                    <p style="color: #555; line-height: 1.6; margin-bottom: 15px;">Implemented comprehensive predictive maintenance AI platform integrating:</p>
-                                    <ul style="color: #555; line-height: 1.6; padding-left: 20px;">
-                                        <li>IoT sensor networks across 2,400+ critical machines</li>
-                                        <li>Machine learning models for failure prediction (Random Forest, LSTM)</li>
-                                        <li>Real-time anomaly detection and alerting system</li>
-                                        <li>Maintenance scheduling optimization algorithms</li>
-                                        <li>Executive dashboard with KPI tracking</li>
-                                    </ul>
-                                </div>
-                                
-                                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; margin-bottom: 30px;">
-                                    <div style="text-align: center; padding: 20px; background: #fafafa; border-radius: 8px;">
-                                        <div style="font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px;">$12.3M</div>
-                                        <div style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.1em;">Annual Savings</div>
-                                    </div>
-                                    <div style="text-align: center; padding: 20px; background: #fafafa; border-radius: 8px;">
-                                        <div style="font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px;">73%</div>
-                                        <div style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.1em;">Downtime Reduction</div>
-                                    </div>
-                                    <div style="text-align: center; padding: 20px; background: #fafafa; border-radius: 8px;">
-                                        <div style="font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px;">4.2x</div>
-                                        <div style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.1em;">ROI Multiple</div>
-                                    </div>
-                                    <div style="text-align: center; padding: 20px; background: #fafafa; border-radius: 8px;">
-                                        <div style="font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px;">6 Mo</div>
-                                        <div style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.1em;">Payback Period</div>
-                                    </div>
-                                </div>
-                                
-                                <div style="background: #f0f9ff; border-left: 4px solid #1a1a1a; padding: 20px; margin-bottom: 20px;">
-                                    <p style="font-style: italic; color: #555; margin: 0;">"This AI implementation didn't just reduce costs—it fundamentally changed how we think about operations. We now prevent problems instead of reacting to them. The competitive advantage is substantial."</p>
-                                    <p style="font-weight: 600; color: #1a1a1a; margin: 10px 0 0 0;">— Sarah Chen, Chief Technology Officer</p>
-                                </div>
-                            </div>
-                            
-                            <div style="border-bottom: 2px solid #1a1a1a; padding-bottom: 40px; margin-bottom: 60px;">
-                                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 30px;">
-                                    <h2 style="font-size: 32px; font-weight: 600; color: #1a1a1a; margin: 0;">Financial Services Risk Platform</h2>
-                                    <span style="background: #1a1a1a; color: white; padding: 8px 16px; border-radius: 4px; font-size: 12px; font-weight: 600;">FINTECH</span>
-                                </div>
-                                
-                                <div style="background: #fafafa; padding: 30px; border-radius: 8px; margin-bottom: 30px;">
-                                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 15px;">Challenge</h3>
-                                    <p style="color: #555; line-height: 1.6;">Mid-market financial services firm processing 2M+ transactions daily with legacy rule-based fraud detection showing 60% accuracy and 12% false positive rate, creating customer friction and regulatory compliance risks.</p>
-                                </div>
-                                
-                                <div style="background: #fafafa; padding: 30px; border-radius: 8px; margin-bottom: 30px;">
-                                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 15px;">Solution</h3>
-                                    <p style="color: #555; line-height: 1.6; margin-bottom: 15px;">Built comprehensive AI-powered risk assessment platform featuring:</p>
-                                    <ul style="color: #555; line-height: 1.6; padding-left: 20px;">
-                                        <li>Real-time fraud detection using ensemble ML models</li>
-                                        <li>Graph neural networks for relationship analysis</li>
-                                        <li>Behavioral biometrics and pattern recognition</li>
-                                        <li>Dynamic risk scoring with contextual analysis</li>
-                                        <li>Regulatory compliance monitoring and reporting</li>
-                                    </ul>
-                                </div>
-                                
-                                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; margin-bottom: 30px;">
-                                    <div style="text-align: center; padding: 20px; background: #fafafa; border-radius: 8px;">
-                                        <div style="font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px;">94%</div>
-                                        <div style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.1em;">Detection Accuracy</div>
-                                    </div>
-                                    <div style="text-align: center; padding: 20px; background: #fafafa; border-radius: 8px;">
-                                        <div style="font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px;">0.02%</div>
-                                        <div style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.1em;">False Positive Rate</div>
-                                    </div>
-                                    <div style="text-align: center; padding: 20px; background: #fafafa; border-radius: 8px;">
-                                        <div style="font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px;">85%</div>
-                                        <div style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.1em;">Speed Increase</div>
-                                    </div>
-                                    <div style="text-align: center; padding: 20px; background: #fafafa; border-radius: 8px;">
-                                        <div style="font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px;">$8.7M</div>
-                                        <div style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.1em;">Fraud Losses Prevented</div>
-                                    </div>
-                                </div>
-                                
-                                <div style="background: #f0f9ff; border-left: 4px solid #1a1a1a; padding: 20px;">
-                                    <p style="font-style: italic; color: #555; margin: 0;">"The AI platform transformed our risk management capabilities. We can now detect sophisticated fraud patterns that were invisible to our previous systems, while dramatically improving the customer experience."</p>
-                                    <p style="font-weight: 600; color: #1a1a1a; margin: 10px 0 0 0;">— Michael Torres, Chief Risk Officer</p>
-                                </div>
-                            </div>
-                            
-                            <div style="text-align: center; padding-top: 40px;">
-                                <p style="color: #666; margin-bottom: 20px;">Ready to discuss your AI transformation?</p>
-                                <a href="#contact" onclick="this.closest('.case-studies-modal').remove()" style="background: #1a1a1a; color: white; padding: 16px 32px; text-decoration: none; font-weight: 600; border-radius: 4px;">Schedule Consultation</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
+        // Update active navigation item on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-menu a');
             
-            const modal = document.createElement('div');
-            modal.className = 'case-studies-modal';
-            modal.innerHTML = caseStudiesContent;
-            document.body.appendChild(modal);
-        }
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop - 200) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
 
-        
-            
-            // Replace with actual form handling
-            alert('Thank you. We will review your inquiry and respond within 24 hours if there is a potential fit.');
-            this.reset();
+        // Add scroll-based animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe cards and sections for animation
+        document.querySelectorAll('.card, .case-study, .process-step, .update-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
         });
     </script>
 </body>
